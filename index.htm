@@ -134,7 +134,7 @@
 
   <div id="questions"></div>
 
-  <button onclick="calculateQDASH()">Calculate Score</button>
+  <button onclick="passwordGate()">Show to your therapist</button>
   <div id="warning" class="warning"></div>
 </div>
 
@@ -207,6 +207,17 @@ questions.forEach((q, index) => {
   questionsDiv.appendChild(qDiv);
 });
 
+/* PASSWORD GATE */
+function passwordGate() {
+  const pw = prompt("Enter password to view score:");
+  if (pw === null) return;
+  if (pw !== "225500") {
+    alert("Incorrect password. Score cannot be displayed.");
+    return;
+  }
+  calculateQDASH();
+}
+
 function calculateQDASH() {
   const warning = document.getElementById("warning");
   warning.textContent = "";
@@ -217,7 +228,7 @@ function calculateQDASH() {
   for (let i = 1; i <= 11; i++) {
     const selected = document.querySelector(`input[name="q${i}"]:checked`);
     if (!selected) {
-      warning.textContent = "Please complete all questions before calculating.";
+      warning.textContent = "Please complete all questions before continuing.";
       return;
     }
     total += parseInt(selected.value);
